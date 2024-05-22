@@ -1,34 +1,24 @@
-# tulis solusi code disini
-class ShippingGoods:
-    def __init__(self, length, width, height, weight):
-        self.length = length
-        self.width = width
-        self.height = height
-        self.weight = weight
+import math
 
-    def calculate_volume(self):
-        return self.length * self.width * self.height
+def calculate_volume(length, width, height):
+    return length * width * height
 
-    def calculate_price(self):
-        if self.calculate_volume() >= 50 and self.weight >= 1:
-            return 5000
-        else:
-            return 0
+def calculate_price(length, width, height, weight):
+    volume = calculate_volume(length, width, height)
+    if volume < 50:
+        volume = 50
 
-    def print_details(self):
-        print(f"Length: {self.length} cm")
-        print(f"Width: {self.width} cm")
-        print(f"Height: {self.height} cm")
-        print(f"Weight: {self.weight} kg")
-        print(f"Volume: {self.calculate_volume()} cm3")
-        print(f"Price: Rp. {self.calculate_price()}")
+    rounded_weight = math.ceil(weight)
 
-# Example usage
-goods1 = ShippingGoods(10, 5, 2, 0.5)
-goods1.print_details()
+    price_per_kg = 5000
+    total_price = rounded_weight * price_per_kg
+    return total_price
 
-goods2 = ShippingGoods(20, 10, 5, 2)
-goods2.print_details()
+if __name__ == "__main__":
+    length = float(input("Masukkan panjang barang (cm): "))
+    width = float(input("Masukkan lebar barang (cm): "))
+    height = float(input("Masukkan tinggi barang (cm): "))
+    weight = float(input("Masukkan berat barang (kg): "))
 
-goods3 = ShippingGoods(5, 3, 1, 0.1)
-goods3.print_details()
+    price = calculate_price(length, width, height, weight)
+    print(f"Total pengiriman barang : Rp. {price}")
